@@ -41,7 +41,7 @@
 			var n = array.length;
 			for (var i = 0; i < n; i++)
 			{ 
-				if(property in array[i])
+				if(array[i].hasOwnProperty(property))
 				{
 					for (var j = 0; j < n-1; j++)
 					{ 
@@ -74,23 +74,19 @@
 	function dynamicSort(array,property,inc_or_dec) 
 	{
 		var n = array.length;
-		function incOrDecFactory (inc_or_dec)
+		function orderFactory (inc_or_dec)
 		{
 			return function helpSortRule(a,b)
 			{
-				var result = (a[property] < b[property]) ? -inc_or_dec : (a[property] > b[property]) ? inc_or_dec : 0;
-				return result;
+				if(a.hasOwnProperty(property) && b.hasOwnProperty(property))
+				{
+					var result = (a[property] < b[property]) ? -inc_or_dec : (a[property] > b[property]) ? inc_or_dec : 0;
+					return result;
+				}
 			}
 		}
-		
-		var sort_rule=incOrDecFactory(inc_or_dec);
-		for (var i = 0; i < n; i++)
-		{ 
-			if(property in array[i])
-			{
-				array.sort(sort_rule);
-			}
-		}		
+		var sort_rule=orderFactory(inc_or_dec);
+		array.sort(sort_rule);		
 	}
 	/**
      * The function is executed after loading html page.
@@ -98,7 +94,7 @@
 	function init()
 	{
 		//bubbleSort(collection,'age','dec');
-		dynamicSort(collection,'name',-1);
+		dynamicSort(collection,'age',-1);
 		show(collection);
 	}
 	/**
