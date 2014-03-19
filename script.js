@@ -23,7 +23,7 @@
 		container.appendChild(div);
 	}
 	// сортування бульбашкою	
-	function bubbleSort (array, propert)
+	function bubbleSort (array, propert,inc_or_dec)
 	{
 		var n = array.length;
 		for (var i = 0; i < n; i++)
@@ -38,13 +38,17 @@
 				}
 			}
 			//show(array);
-		}                     
+		}  
+			if(inc_or_dec=='dec')
+			{
+				array.reverse();
+			}
 		return array;   
 	}
 	
 	function init()
 	{
-		bubbleSort(collection,'town');
+		bubbleSort(collection,'age','dec');
 		show(collection);
 	}
 	window.init = init;
