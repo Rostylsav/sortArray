@@ -23,32 +23,66 @@
 		container.appendChild(div);
 	}
 	// сортування бульбашкою	
-	function bubbleSort (array, propert,inc_or_dec)
+	/*function bubbleSort (array, propert,inc_or_dec)
 	{
-		var n = array.length;
-		for (var i = 0; i < n; i++)
-		{ 
-			for (var j = 0; j < n-1; j++)
+		if(propert === 'name'|| propert === 'age'|| propert === 'town')
+		{
+			var n = array.length;
+			for (var i = 0; i < n; i++)
 			{ 
-				if (array[j+1][propert] < array[j][propert])
-			   {
-					var tz = array[j+1]; 
-					array[j+1] = array[j];
-					array[j] = tz; 
+				for (var j = 0; j < n-1; j++)
+				{ 
+					if (array[j+1][propert] < array[j][propert])
+				   {
+						var tz = array[j+1]; 
+						array[j+1] = array[j];
+						array[j] = tz; 
+					}
+				}
+				//show(array);
+			}  
+				if(inc_or_dec==='dec')
+				{
+					array.reverse();
+				}
+			return array;
+		}		
+		else
+		{
+			alert('Неправильно введене імя властивості обєкта.Будь ласка перевірти привильність написання і перезапустіть програму.')
+		}
+	}
+	*/
+	function dynamicSort(property,inc_or_dec) 
+	{
+		if(property === 'name'|| property === 'age'|| property === 'town')
+		{
+			if(inc_or_dec==="inc")
+			{
+				return function (a,b)
+				{
+					var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+					return result;
 				}
 			}
-			//show(array);
-		}  
-			if(inc_or_dec=='dec')
+			else
 			{
-				array.reverse();
+				return function (a,b) 
+				{
+					var result = (a[property] < b[property]) ? 1 : (a[property] > b[property]) ? -1 : 0;
+					return result;
+				}
 			}
-		return array;   
+		}		
+		else
+		{
+			alert('Неправильно введене імя властивості обєкта.Будь ласка перевірти привильність написання і перезапустіть програму.')
+		}
 	}
-	
 	function init()
 	{
-		bubbleSort(collection,'age','dec');
+		//bubbleSort(collection,'age','dec');
+		collection.sort(dynamicSort('name','dec'));
 		show(collection);
 	}
 	window.init = init;
