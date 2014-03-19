@@ -1,7 +1,7 @@
 (function ()
 {
 	/**
-     * Колекція обєктів.
+     * A collection of objects.
      */
 	var collection=[
 					{name:'Borys',age:54,town:'Sambir'},
@@ -11,8 +11,8 @@
 					{name:'Igor',age:26,town:'Lviv'}
 					];
 	/**
-     * Функція яка відображає елементи колекції на екрані.
-	 * @param {Аrray} колекція елементи якої будуть відображатися.
+     * The function that displays a collection of object on the screen.
+	 * @param {Аrray} collection of objects which will be displayed.
      */	
 	function show(array)
 	{
@@ -28,90 +28,81 @@
 		container.appendChild(div);
 	}
 	/**
-     * Функція яка містиь перевірку на правильність написання імені властивості обєкта
-	 * та здійснює сортування колекції методом Бульбашки.
-	 * Також вибирає яким чином придставити колекцію обяктів(в вигляді зростання чи спадання).
-	 * @param {Аrray} колекція в якії буде проводитися сортування.
-     * @param {String} назва властивості за якою буде відбуватися сортування.
-     * @param {String} змінна яка вказує як представити масив(у вигляді зростання чи спадання).
-     * @returns Повертає відсортований масив у вигляді спадання чи зростання.
+     * Function containing check for correct spelling of object properties
+	* And provides a method of sorting a collection of bubbles.
+	* Also choose how to show a collection of objects (in the form of increase or decrease).
+	 * @param {Аrray} collection which will be held sort.
+     * @param {String} property name for which will be sorted.
+     * @param {String} variable that indicates how to show a collection of objects (in the form of increase or decrease).
+     * @returns Returns a sorted collection of objects in the form of decrease or increase.
      */	
-	function bubbleSort (array, propert,inc_or_dec)
+	function bubbleSort (array, property,inc_or_dec)
 	{
-		if(propert === 'name'|| propert === 'age'|| propert === 'town')
-		{
 			var n = array.length;
 			for (var i = 0; i < n; i++)
 			{ 
-				for (var j = 0; j < n-1; j++)
-				{ 
-					if (array[j+1][propert] < array[j][propert])
-				   {
-						var tz = array[j+1]; 
-						array[j+1] = array[j];
-						array[j] = tz; 
+				if(property in array[i])
+				{
+					for (var j = 0; j < n-1; j++)
+					{ 
+						if (array[j+1][property] < array[j][property])
+						{
+							var tz = array[j+1]; 
+							array[j+1] = array[j];
+							array[j] = tz; 
+						}
 					}
 				}
 				//show(array);
 			}  
-				if(inc_or_dec==='dec')
-				{
-					array.reverse();
-				}
+			if(inc_or_dec==='dec')
+			{
+				array.reverse();
+			}
 			return array;
-		}		
-		else
-		{
-			alert('Неправильно введене імя властивості обєкта.Будь ласка перевірти привильність написання і перезапустіть програму.')
-		}
-	}
+	}		
 
 	
 	/**
-     * Функція яка містиь перевірку на правильність написання імені властивості обєкта
-	 * та визначає за якими властивостями проводити сортування.
-	 * Також вибирає яким чином придставити колекцію обяктів(в вигляді зростання чи спадання).
-     * @param {String} назва властивості за якою будевідбуватися сортування.
-     * @param {String} змінна яка вказує як представити масив(у вигляді зростання чи спадання).
-     * @returns Повертає функцію яка задає правило сортування.
-     */
-	function dynamicSort(property,inc_or_dec) 
+    * Function containing check for correct spelling of object properties 
+	* And determine which properties to carry out sorting. 
+	* Also choose how to show a collection of objects (in the form of increase or decrease).
+    * @param {String}  property name for which will be sorted.
+    * @param {String} variable that indicates how to show a collection of objects (in the form of increase or decrease).
+    * @returns Returns the function that sets the sorting rule.
+    */
+	function dynamicSort(array,property,inc_or_dec) 
 	{
-		if(property === 'name'|| property === 'age'|| property === 'town')
+		var n = array.length;
+		function incOrDecFactory (inc_or_dec)
 		{
-			if(inc_or_dec==="inc")
+			return function helpSortRule(a,b)
 			{
-				return function (a,b)
-				{
-					var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-					return result;
-				}
+				var result = (a[property] < b[property]) ? -inc_or_dec : (a[property] > b[property]) ? inc_or_dec : 0;
+				return result;
 			}
-			else
+		}
+		
+		var sort_rule=incOrDecFactory(inc_or_dec);
+		for (var i = 0; i < n; i++)
+		{ 
+			if(property in array[i])
 			{
-				return function (a,b) 
-				{
-					var result = (a[property] < b[property]) ? 1 : (a[property] > b[property]) ? -1 : 0;
-					return result;
-				}
+				array.sort(sort_rule);
 			}
 		}		
-		else
-		{
-			alert('Неправильно введене імя властивості обєкта.Будь ласка перевірти привильність написання і перезапустіть програму.')
-		}
 	}
 	/**
-     * Функція яка виконується після завантаження html сторінки.
+     * The function is executed after loading html page.
      */
 	function init()
 	{
 		//bubbleSort(collection,'age','dec');
-		collection.sort(dynamicSort('name','dec'));
+		dynamicSort(collection,'name',-1);
 		show(collection);
 	}
 	/**
-     * присвоєння функції init() статосу глобальної.
+     * assignment function init () global status.
      */
 	window.init = init;
 }())
