@@ -76,4 +76,75 @@
 	
 	
 	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	function Hash(obj)
+	{
+		this.items = {};
+		for (var p in obj) {
+			if (obj.hasOwnProperty(p)) {
+				this.items[p] = obj[p];
+			}
+		}
+		this.hasItem = function(key)
+		{
+			return this.items.hasOwnProperty(key);
+		}
+	   
+		this.setItem = function(key, value)
+		{
+			this.items[key] = value;
+		}
+
+		this.getItem = function(key) 
+		{
+			if(this.hasItem(key))
+			{
+				return this.items[key];// : undefined;
+			}
+		}
+		
+		this.removeItem = function(key)
+		{
+			if (this.hasItem(key)) 
+			{
+				delete this.items[key];
+				console.log('Removal was successful.');
+			}
+		}
+	}
+	
+	/*
+	var Map= new Hash({'key_1':'rostyk','key_2':123,'key_3':true});
+	Map.setItem('key_4',321);
+	console.log(Map.getItem('key_4')+Map.getItem('key_1'));
+	Map.removeItem('key_4');
+	console.log(Map.getItem('key_4'));
+	
+	
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }())
