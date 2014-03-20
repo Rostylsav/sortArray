@@ -1,11 +1,22 @@
 (function()
 {
 	var Map={
-		add:function(key,value)
+		/**
+		* Adds an element with key "key"
+		* @param {String} key of element.
+		* @param {} value of element.
+		* @returns Returns a sorted collection of objects in the form of decrease or increase.
+		*/	
+		this.add=function(key,value)
 			{
 				Map[key]=value;
-			},
-		get:function(key)
+			}
+		/**
+		* Get an element by key.
+		* @param {String} key of element.
+		* @returns value of element.
+		*/	
+		this.get=function(key)
 			{
 				if(Map.hasOwnProperty(key))
 				{
@@ -15,8 +26,12 @@
 				{
 					console.log('There is no key with the same name.');
 				}
-			},
-		remove:function(key)
+			}
+			/**
+		* Remove an element by key.
+		* @param {String} key of element.
+		*/	
+		this.remove=function(key)
 			{
 				if(Map.hasOwnProperty(key))
 				{
@@ -39,23 +54,36 @@
 	
 	
 	var AnotherMap={
-		
-		add:function(key,value)
+		/**
+		* Adds an element with key "key"
+		* @param {String} key of element.
+		* @param {} value of element.
+		* @returns Returns a sorted collection of objects in the form of decrease or increase.
+		*/
+		this.add=function(key,value)
 			{
 				Map[key]=value;
-			},
-		get:function(key)
+			}
+		/**
+		* Get an element by key.
+		* @param {String} key of element.
+		* @returns value of element.
+		*/	
+		this.get=function(key)
 			{
 				if(Map.hasOwnProperty(key))
 				{
-					return Map[key];
+					return AnotherMap[key];
 				}
 				else
 				{
 					console.log('There is no key with the same name.');
 				}
-			},
-		remove:function(key)
+			}
+		/** Remove an element by key.
+		* @param {String} key of element.
+		*/
+		this.remove=function(key)
 			{
 				if(Map.hasOwnProperty(key))
 				{
@@ -78,8 +106,36 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
+	/**
+		* Creates a new HashMap.
+		* @constructor 
+		* @param {obj} object whis property and value.
+		*/	
 	function Hash(obj)
 	{
 		this.items = {};
@@ -88,16 +144,28 @@
 				this.items[p] = obj[p];
 			}
 		}
+		/** Verifies the existence of key.
+		* @param {String} key of element.
+		*/
 		this.hasItem = function(key)
 		{
 			return this.items.hasOwnProperty(key);
 		}
-	   
+	   /**
+		* Adds an element with key "key"
+		* @param {String} key of element.
+		* @param {} value of element.
+		* @returns Returns a sorted collection of objects in the form of decrease or increase.
+		*/
 		this.setItem = function(key, value)
 		{
 			this.items[key] = value;
 		}
-
+		/**
+		* Get an element by key.
+		* @param {String} key of element.
+		* @returns value of element.
+		*/	
 		this.getItem = function(key) 
 		{
 			if(this.hasItem(key))
@@ -105,7 +173,9 @@
 				return this.items[key];// : undefined;
 			}
 		}
-		
+		/** Remove an element by key.
+		* @param {String} key of element.
+		*/
 		this.removeItem = function(key)
 		{
 			if (this.hasItem(key)) 
