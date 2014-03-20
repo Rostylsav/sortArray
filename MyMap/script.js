@@ -7,7 +7,7 @@
 		* @param {} value of element.
 		* @returns Returns a sorted collection of objects in the form of decrease or increase.
 		*/	
-		this.add=function(key,value)
+		add:function(key,value)
 			{
 				Map[key]=value;
 			}
@@ -16,7 +16,7 @@
 		* @param {String} key of element.
 		* @returns value of element.
 		*/	
-		this.get=function(key)
+		get:function(key)
 			{
 				if(Map.hasOwnProperty(key))
 				{
@@ -31,7 +31,7 @@
 		* Remove an element by key.
 		* @param {String} key of element.
 		*/	
-		this.remove=function(key)
+		remove:function(key)
 			{
 				if(Map.hasOwnProperty(key))
 				{
@@ -60,7 +60,7 @@
 		* @param {} value of element.
 		* @returns Returns a sorted collection of objects in the form of decrease or increase.
 		*/
-		this.add=function(key,value)
+		add:function(key,value)
 			{
 				Map[key]=value;
 			}
@@ -69,7 +69,7 @@
 		* @param {String} key of element.
 		* @returns value of element.
 		*/	
-		this.get=function(key)
+		get:function(key)
 			{
 				if(Map.hasOwnProperty(key))
 				{
@@ -83,7 +83,7 @@
 		/** Remove an element by key.
 		* @param {String} key of element.
 		*/
-		this.remove=function(key)
+		remove:function(key)
 			{
 				if(Map.hasOwnProperty(key))
 				{
@@ -100,35 +100,7 @@
 	Map.add('key_6',AnotherMap);
 	
 	console.log(Map.get('key_6').get('key_1'));
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
