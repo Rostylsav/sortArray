@@ -131,10 +131,8 @@
 		this.setChanjeStepOfColor = function()
 		{
 			this.stepChengOfColor[0] = Math.floor((this.startColor[0] - this.endColor[0]) / this.frameCount);
-			console.log(this.startColor[0]);
 			this.stepChengOfColor[1] = Math.floor((this.startColor[1] - this.endColor[1]) / this.frameCount);
 			this.stepChengOfColor[2] = Math.floor((this.startColor[2] - this.endColor[2]) / this.frameCount);
-			console.log(this.stepChengOfColor);
 		}
 		
 		/**
