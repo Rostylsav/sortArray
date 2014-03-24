@@ -6,7 +6,6 @@
 		* @param {obj} object whis property and value.
 		* @property {function} action_of_timer function for timer.
 		* @property {number} interval_of_timer interval for timer.
-		* @property {number} intervalIid intervalId of timer.
 		*/	
 	function Timer(obj)
 	{
@@ -96,21 +95,18 @@
 		* @property {array} startCcolor  original color for animation.
 		* @property {array} endColor the final color for animation.
 		* @property {number} timeForChange time of animation.
-		* @property {array} array_color_to_chanje color to chanje.
-		* @property {number} frame frame of animation.
-		* @property {number} intervalIid intervalId of animation.
 		*/	
 	function animateColor(obj)
 	{
 		this.element=obj.element;
 		
-		this.startCcolor = obj.startCcolor;
+		this.startColor = obj.startColor;
 		
 		this.endColor = obj.endColor;
 		
 		this.timeForChange = obj.time;
 		
-		this.array_color_to_chanje = this.startCcolor;
+		this.array_color_to_chanje = this.startColor;
 		
 		this.frame=0;
 		
@@ -134,9 +130,11 @@
 		*/
 		this.setChanjeStepOfColor = function()
 		{
-			this.stepChengOfColor[0] = ((this.startCcolor[0] - this.endColor[0]) / this.setFrameCount());
-			this.stepChengOfColor[1] = ((this.startCcolor[1] - this.endColor[1]) / this.setFrameCount());
-			this.stepChengOfColor[2] = ((this.startCcolor[2] - this.endColor[2]) / this.setFrameCount());
+			this.stepChengOfColor[0] = Math.floor((this.startColor[0] - this.endColor[0]) / this.frameCount);
+			console.log(this.startColor[0]);
+			this.stepChengOfColor[1] = Math.floor((this.startColor[1] - this.endColor[1]) / this.frameCount);
+			this.stepChengOfColor[2] = Math.floor((this.startColor[2] - this.endColor[2]) / this.frameCount);
+			console.log(this.stepChengOfColor);
 		}
 		
 		/**
@@ -144,9 +142,10 @@
 		*/
 		this.setNewColorToShow = function(stup)
 		{
-			this.array_color_to_chanje[0] = this.array_color_to_chanje[0] + 2;
-			this.array_color_to_chanje[1] = this.array_color_to_chanje[1] - 1;
-			this.array_color_to_chanje[2] = this.array_color_to_chanje[2] + 0;
+			
+			this.array_color_to_chanje[0] = this.array_color_to_chanje[0] - this.stepChengOfColor[0];
+			this.array_color_to_chanje[1] = this.array_color_to_chanje[1] - this.stepChengOfColor[1];
+			this.array_color_to_chanje[2] = this.array_color_to_chanje[2] - this.stepChengOfColor[2];
 		}
 		/**
 		* stopChangingt  animation.
@@ -189,7 +188,7 @@
 	
 	function init()
 	{
-		var color = new animateColor({element:document.getElementById('container'), startCcolor:[113, 123, 90], endColor:[225, 50, 115], time:1500})
+		var color = new animateColor({element:document.getElementById('container'), startColor:[113, 123, 90], endColor:[225, 50, 115], time:1500})
 		color.run();
 	}
 	window.init = init;
