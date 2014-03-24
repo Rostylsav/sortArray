@@ -6,14 +6,14 @@
 		* @param {obj} object whis property and value.
 		* @property {function} action_of_timer function for timer.
 		* @property {number} interval_of_timer interval for timer.
-		* @property {number} interval_id intervalId of timer.
+		* @property {number} intervalIid intervalId of timer.
 		*/	
 	function Timer(obj)
 	{
 
 		this.action_of_timer = obj.callback;
 		this.interval_of_timer = obj.interval;
-		this.interval_id = 0;
+		this.intervalIid = 0;
 		
 		/**
 		* Function checks whether the timer is running.
@@ -22,7 +22,7 @@
 		this.isRunning=function()
 		{
 			var is_running;
-			if(this.interval_id != 0)
+			if(this.intervalIid != 0)
 			{
 				is_running = true;
 			}
@@ -40,7 +40,7 @@
 		{
 			if(this.isRunning())
 			{
-				this.stop();
+				this.stopChanging();
 				this.action_of_timer=action;
 				this.run();
 			}
@@ -57,7 +57,7 @@
 		{
 			if(this.isRunning())
 			{
-				this.stop();
+				this.stopChanging();
 				this.interval_of_timer=interval;
 				this.run();
 			}
@@ -71,15 +71,15 @@
 		*/
 		this.run = function()
 		{
-			this.interval_id=setInterval(this.action_of_timer,this.interval_of_timer);
+			this.intervalIid=setInterval(this.action_of_timer,this.interval_of_timer);
 		}
 		/**
-		* The function stops the timer.
+		* The function stopChangings the timer.
 		*/
-		this.stop = function()
+		this.stopChanging = function()
 		{
-			clearInterval(this.interval_id);
-			this.interval_id=0;
+			clearInterval(this.intervalIid);
+			this.intervalIid=0;
 		}
 		
 	}
@@ -93,31 +93,38 @@
 		* @constructor 
 		* @param {obj} object whis property and value.
 		* @property {html element} element html element for animation.
-		* @property {array} start_color  original color for animation.
-		* @property {array} end_color the final color for animation.
-		* @property {number} time_to_chanje time of animation.
+		* @property {array} startCcolor  original color for animation.
+		* @property {array} endColor the final color for animation.
+		* @property {number} timeForChange time of animation.
 		* @property {array} array_color_to_chanje color to chanje.
 		* @property {number} frame frame of animation.
-		* @property {number} interval_id intervalId of animation.
+		* @property {number} intervalIid intervalId of animation.
 		*/	
 	function animateColor(obj)
 	{
 		this.element=obj.element;
-		this.start_color = obj.start_color;
-		this.end_color = obj.end_color;
-		this.time_to_chanje = obj.time;
-		this.array_color_to_chanje=this.start_color;
+		
+		this.startCcolor = obj.startCcolor;
+		
+		this.endColor = obj.endColor;
+		
+		this.timeForChange = obj.time;
+		
+		this.array_color_to_chanje = this.startCcolor;
+		
 		this.frame=0;
-		this.interval_id = 0;
+		
+		this.intervalIid = 0;
+		this.frameCount = 0
+		this.stepChengOfColor=[];
 		
 		/**
 		* Counts the number of frames.
 		* @returns {number} count of animation.
 		*/
-		this.frameCounts = function()
+		this.setFrameCount = function()
 		{
-			var frame_counts = Math.floor(this.time_to_chanje / 30);
-			return frame_counts;
+			this.frameCount = Math.floor(this.timeForChange / 30);
 		}
 		/**
 		* Numbers by which changes color to animate.
@@ -125,50 +132,47 @@
 		* @param {array}  final color for animation.
 		* @returns {array} array of numbers by which changes color to animate.
 		*/
-		this.chanje_stup = function(start_color, end_color)
+		this.setChanjeStepOfColor = function()
 		{
-			var stup_array=[]
-			stup_array[0] = ((start_color[0] - end_color[0]) / this.frameCounts());
-			stup_array[1] = ((start_color[1] - end_color[1]) / this.frameCounts());
-			stup_array[2] = ((start_color[2] - end_color[2]) / this.frameCounts());
-			return stup_array;
+			this.stepChengOfColor[0] = ((this.startCcolor[0] - this.endColor[0]) / this.setFrameCount());
+			this.stepChengOfColor[1] = ((this.startCcolor[1] - this.endColor[1]) / this.setFrameCount());
+			this.stepChengOfColor[2] = ((this.startCcolor[2] - this.endColor[2]) / this.setFrameCount());
 		}
 		
 		/**
 		* Color for animation.
 		*/
-		this.colorToShow = function()
+		this.setNewColorToShow = function(stup)
 		{
-			var stup = this.chanje_stup(this.start_color, this.end_color);
-			this.array_color_to_chanje[0] = this.start_color[0] - stup[0];
-			this.array_color_to_chanje[1] = this.start_color[1] - stup[1];
-			this.array_color_to_chanje[2] = this.start_color[2] - stup[2];
+			this.array_color_to_chanje[0] = this.array_color_to_chanje[0] + 2;
+			this.array_color_to_chanje[1] = this.array_color_to_chanje[1] - 1;
+			this.array_color_to_chanje[2] = this.array_color_to_chanje[2] + 0;
 		}
 		/**
-		* Stopt  animation.
+		* stopChangingt  animation.
 		*/
-		this.stop = function()
+		this.stopChanges = function()
 		{
-			clearInterval(this.interval_id);
-			this.interval_id=0;
+			clearInterval(this.intervalIid);
+			this.intervalIid=0;
 		}
 		/**
 		* Animation.
 		*/
-		this.chanje = function()
+		this.changeColor = function()
 		{
-			var count = this.frameCounts();
-			if(this.frame <= count)
+			var count = this.setFrameCount();
+			
+			if(this.frame < this.frameCount)
 			{
+				this.setNewColorToShow();
 				this.element.style.backgroundColor = 'rgb(' + this.array_color_to_chanje[0] + ',' + this.array_color_to_chanje[1] + ','+ this.array_color_to_chanje[2] + ')';
-				console.log('work');
+				this.frame++
 			}
 			else
 			{
-				this.stop();
-				console.log('end');
+				this.stopChanges();
 			}
-			this.colorToShow();
 
 		}
 		/**
@@ -176,23 +180,25 @@
 		*/
 		this.run = function()
 		{
-			this.interval_id=setInterval(this.chanje, 30);
+			this.setFrameCount();
+			this.setChanjeStepOfColor();
+			this.intervalIid=setInterval(callMethodOfObject(this.changeColor, this), 30);
 		}
 		
 	}
 	
-	/*function init()
+	function init()
 	{
-		var color = new animateColor({element:document.getElementById('container'), start_color:[113, 123, 90], end_color:[225, 50, 115], time:1500})
-		window.animateColor = animateColor;
+		var color = new animateColor({element:document.getElementById('container'), startCcolor:[113, 123, 90], endColor:[225, 50, 115], time:1500})
 		color.run();
 	}
-	window.init = init;*/
+	window.init = init;
+	window.animateColor = animateColor;
 	
-	
-		window.animateColor = animateColor;
-	
-	
+	function callMethodOfObject (method, context){
+		return function (){return method.call(context)};
+	}
+		window.callMethodOfObject = callMethodOfObject;
 	
 	
 	
