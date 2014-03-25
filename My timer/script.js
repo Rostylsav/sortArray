@@ -106,7 +106,7 @@
 		
 		this.timeForChange = obj.time;
 		
-		this.array_color_to_chanje = this.startColor;
+		this.array_color_to_chanje = [];
 		
 		this.frame=0;
 		
@@ -130,9 +130,9 @@
 		*/
 		this.setChanjeStepOfColor = function()
 		{
-			this.stepChengOfColor[0] = Math.floor((this.startColor[0] - this.endColor[0]) / this.frameCount);
-			this.stepChengOfColor[1] = Math.floor((this.startColor[1] - this.endColor[1]) / this.frameCount);
-			this.stepChengOfColor[2] = Math.floor((this.startColor[2] - this.endColor[2]) / this.frameCount);
+			this.stepChengOfColor[0] = ((this.startColor[0] - this.endColor[0]) / this.frameCount);
+			this.stepChengOfColor[1] = ((this.startColor[1] - this.endColor[1]) / this.frameCount);
+			this.stepChengOfColor[2] = ((this.startColor[2] - this.endColor[2]) / this.frameCount);
 		}
 		
 		/**
@@ -141,9 +141,10 @@
 		this.setNewColorToShow = function(stup)
 		{
 			
-			this.array_color_to_chanje[0] = this.array_color_to_chanje[0] - this.stepChengOfColor[0];
-			this.array_color_to_chanje[1] = this.array_color_to_chanje[1] - this.stepChengOfColor[1];
-			this.array_color_to_chanje[2] = this.array_color_to_chanje[2] - this.stepChengOfColor[2];
+			this.array_color_to_chanje[0] = (this.startColor[0] - Math.floor(this.stepChengOfColor[0]*this.frame));
+			this.array_color_to_chanje[1] = (this.startColor[1] - Math.floor(this.stepChengOfColor[1]*this.frame));
+			this.array_color_to_chanje[2] = (this.startColor[2] - Math.floor(this.stepChengOfColor[2]*this.frame));
+			this.frame++;
 		}
 		/**
 		* stopChangingt  animation.
@@ -164,7 +165,6 @@
 			{
 				this.setNewColorToShow();
 				this.element.style.backgroundColor = 'rgb(' + this.array_color_to_chanje[0] + ',' + this.array_color_to_chanje[1] + ','+ this.array_color_to_chanje[2] + ')';
-				this.frame++
 			}
 			else
 			{
@@ -179,7 +179,7 @@
 		{
 			this.setFrameCount();
 			this.setChanjeStepOfColor();
-			this.intervalIid=setInterval(callMethodOfObject(this.changeColor, this), 30);
+			this.intervalIid=setInterval(this.changeColor.bind(this), 30);
 		}
 		
 	}
@@ -191,7 +191,8 @@
 	}
 	window.init = init;
 	window.animateColor = animateColor;
-	
+	Function.prototype.myBind = function(method, context){return method.call(context);}
+		
 	function callMethodOfObject (method, context){
 		return function (){return method.call(context)};
 	}
@@ -199,13 +200,25 @@
 	
 	
 	
+	callMethodOfObject.myBind
 	
 	
 	
 	
 	
-	
-	
+	/*
+		var obj1 = {
+		   name:'rostyk',
+		 }
+
+		var obj2 = {
+		   name:'ivanka',
+		 }
+
+		var sayName = function(){return this.name;}
+
+		Function.prototype.myBind = function(method,context){return method.call(context);}
+	*/
 	
 	
 	
