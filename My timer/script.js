@@ -196,8 +196,24 @@
 		color4.run();
 	}
 	window.init = init;
+	
+	
+	/*
+	function myBind(func, context /*, args*
+	) {
+	  var args = [].slice.call(arguments, 2);
+	  if (typeof context == "string") {   // bind(obj, 'method', ...)
+		args.unshift( func[context], func );
+		return bind.apply(this, args);
+	  }
+	  return function() {
+		var unshiftArgs = args.concat( [].slice.call(arguments) );
+		return func.apply(context, unshiftArgs);
+	  };
+	}
+*/
 	//window.animateColor = animateColor;
-	//Function.prototype.myBind = function(method, context){return method.call(context);}
+	Function.prototype.myBind = function(context){return this.call(context);}
 		
 	//function callMethodOfObject (method, context){
 	//	return function (){return method.call(context)};
@@ -221,7 +237,7 @@
 		var sayName = function(){return this.name;}
 
 		
-		Function.prototype.myBind = function(method,context){return method.call(context);}
+		Function.prototype.myBind = function(context){return this.call(context);}
 		
 		sayName.myBind(obj1);
 	*/
