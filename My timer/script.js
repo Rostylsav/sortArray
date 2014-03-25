@@ -179,7 +179,7 @@
 		{
 			this.setFrameCount();
 			this.setChanjeStepOfColor();
-			this.intervalIid=setInterval(this.changeColor.bind(this), 30);
+			this.intervalIid=setInterval(this.changeColor.myBind(this), 30);
 		}
 		
 	}
@@ -213,7 +213,12 @@
 	}
 */
 	//window.animateColor = animateColor;
-	Function.prototype.myBind = function(context){return this.call(context);}
+	Function.prototype.myBind = function(context){
+		var that=this;
+		return function (){
+				that.call(context);
+			}
+		}
 		
 	//function callMethodOfObject (method, context){
 	//	return function (){return method.call(context)};
