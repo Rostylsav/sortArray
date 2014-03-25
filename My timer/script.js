@@ -186,21 +186,24 @@
 	
 	function init()
 	{
-		var color = new animateColor({element:document.getElementById('container'), startColor:[113, 123, 90], endColor:[225, 50, 115], time:1500})
-		color.run();
+		var color1 = new animateColor({element:document.getElementById('container1'), startColor:[113, 123, 90], endColor:[225, 50, 115], time:1500});
+		var color2 = new animateColor({element:document.getElementById('container2'), startColor:[0, 0, 0], endColor:[225, 255, 255], time:2500});
+		var color3 = new animateColor({element:document.getElementById('container3'), startColor:[32, 12, 123], endColor:[90, 155, 255], time:1000});
+		var color4 = new animateColor({element:document.getElementById('container4'), startColor:[33, 122, 110], endColor:[178, 205, 55], time:2000});
+		color1.run();
+		color2.run();
+		color3.run();
+		color4.run();
 	}
 	window.init = init;
-	window.animateColor = animateColor;
-	Function.prototype.myBind = function(method, context){return method.call(context);}
+	//window.animateColor = animateColor;
+	//Function.prototype.myBind = function(method, context){return method.call(context);}
 		
-	function callMethodOfObject (method, context){
-		return function (){return method.call(context)};
-	}
-		window.callMethodOfObject = callMethodOfObject;
+	//function callMethodOfObject (method, context){
+	//	return function (){return method.call(context)};
+	//}
+	//window.callMethodOfObject = callMethodOfObject;
 	
-	
-	
-	callMethodOfObject.myBind
 	
 	
 	
@@ -217,7 +220,10 @@
 
 		var sayName = function(){return this.name;}
 
+		
 		Function.prototype.myBind = function(method,context){return method.call(context);}
+		
+		sayName.myBind(obj1);
 	*/
 	
 	
