@@ -1,0 +1,25 @@
+var obj={
+	elem:function()
+	{
+		document.getElementById('container1').addEventListener('click', this.onClick.myBind(this));
+	},
+	log:function(message)
+	{
+		console.log(message);	
+	},
+   	onClick:function(e)
+    	{
+		debugger;
+     		this.log(e.currentTarget.id);
+  	}
+	
+
+}
+
+Function.prototype.myBind = function(context){
+		var that=this;
+		return function (){
+			that.apply(context,arguments);
+			}
+		}
+obj.elem();

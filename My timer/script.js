@@ -179,7 +179,7 @@
 		{
 			this.setFrameCount();
 			this.setChanjeStepOfColor();
-			this.intervalIid=setInterval(this.changeColor.myBind(this), 30);
+			this.intervalIid=setInterval(this.changeColor.myBind (this), 30);
 		}
 		
 	}
@@ -198,8 +198,25 @@
 	window.init = init;
 	
 	
-	/*
-	function myBind(func, context /*, args*
+	
+	Function.prototype.myBind =  function ( context )
+	{
+		var that = this;
+		var args = [];
+		args.slice.call(arguments, 1);
+		if (typeof context == "string") {
+			return that.apply(context,args);
+	  	}
+	  	return  function() {
+	  			var argmnts = [];
+				var argsArray = args.concat( argmnts.slice.call(arguments) );
+				that.apply(context, argsArray);
+	  		};
+	}
+/*
+
+
+function myBind(func, context /*, args*
 	) {
 	  var args = [].slice.call(arguments, 2);
 	  if (typeof context == "string") {   // bind(obj, 'method', ...)
@@ -211,53 +228,8 @@
 		return func.apply(context, unshiftArgs);
 	  };
 	}
-*/
-	//window.animateColor = animateColor;
-	Function.prototype.myBind = function(context){
-		var that=this;
-		return function (){
-				that.call(context);
-			}
-		}
-		
 	//function callMethodOfObject (method, context){
 	//	return function (){return method.call(context)};
 	//}
-	//window.callMethodOfObject = callMethodOfObject;
-	
-	
-	
-	
-	
-	
-	/*
-		var obj1 = {
-		   name:'rostyk',
-		 }
-
-		var obj2 = {
-		   name:'ivanka',
-		 }
-
-		var sayName = function(){return this.name;}
-
-		
-		Function.prototype.myBind = function(context){return this.call(context);}
-		
-		sayName.myBind(obj1);
-	*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	//window.callMethodOfObject = callMethodOfObject;	
 }())
