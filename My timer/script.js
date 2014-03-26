@@ -179,7 +179,7 @@
 		{
 			this.setFrameCount();
 			this.setChanjeStepOfColor();
-			this.intervalIid=setInterval(this.changeColor.myBind (this), 30);
+			this.intervalIid=setInterval(this.changeColor.myBind (this,{propA:'123'}), 30);
 		}
 		
 	}
@@ -199,18 +199,16 @@
 	
 	
 	
-	Function.prototype.myBind =  function ( context )
+	Function.prototype.myBind =  function ( context, obj )
 	{
+		var data = {
+					payload:obj
+					};
 		var that = this;
-		var args = [];
-		args.slice.call(arguments, 1);
-		if (typeof context == "string") {
-			return that.apply(context,args);
-	  	}
+
 	  	return  function() {
-	  			var argmnts = [];
-				var argsArray = args.concat( argmnts.slice.call(arguments) );
-				that.apply(context, argsArray);
+				data.args = [].slice.call(arguments);
+				that.call(context, data);
 	  		};
 	}
 /*
@@ -231,5 +229,5 @@ function myBind(func, context /*, args*
 	//function callMethodOfObject (method, context){
 	//	return function (){return method.call(context)};
 	//}
-	//window.callMethodOfObject = callMethodOfObject;	
+	//window.callMethodOfObject = callMethodOfObject;	*/
 }())
