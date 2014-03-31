@@ -1,0 +1,5 @@
+Borys,44,sambir
+Rostyk,23,lviv
+Oksana,53,Odesa
+Volodya,38,Ryga
+Igor,26,Lviv

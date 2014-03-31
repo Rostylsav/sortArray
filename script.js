@@ -1,42 +1,34 @@
 (function ()
 {
-	/**
-     * String.
-	 */
-	var strichka='Borys,44,sambir/nRostyk,23,lviv/nOksana,53,Odesa/nVolodya,38,Ryga/nIgor,26,Lviv';
-	/**
-     * A array of strings.
-	 */
-	var array_of_strings=new Array();
-	/**
-     * A collection of objects.
-	 */
-	var collection=new Array();
+	var collection = [];
+    function getData(url,callback,method) 
+    {
+        var xhr = new XMLHttpRequest();
+        xhr.open(method, url, true); 
+        xhr.onreadystatechange = function() {  
+            if (xhr.readyState != 4) return; 
+                callback(xhr.responseText);  
+        }
+        xhr.send(null); 
+    }
+
+    function transformToObject(item)
+    {
+        var array=item.split(',');
+        return {name:array[0], age:array[1], town:array[2]};
+    }
+
+    function getCollection(text)
+    {
+        var array_of_strings = [];
+        array_of_strings = text.split('\n');
+        collection = array_of_strings.map(transformToObject);
+        dynamicSort(collection,'age',-1);
+        show(collection);
+    }
+
+
 	
-	/**
-     * Divides string into smaller parts
-	 * @param {String} String which should be divided.
-	 * @returns Array of strings;
-     */	
-	function podil(stroka)
-	{
-		var array=new Array();
-		array=stroka.split('/n');
-		return array;
-	}
-	/**
-     * Item of array would be transform to object.
-	 * @param {String} String which should be transform to object.
-	 * @returns Obgect;
-     */	
-	function transformToObject(item)
-	{
-		var array=item.split(',');
-		return {name:array[0],age:array[1],town:array[2]};
-	}
-	
-	array_of_strings=podil(strichka);
-	collection=array_of_strings.map(transformToObject);
 	/**
      * A collection of objects.
      
@@ -131,8 +123,9 @@
 	function init()
 	{
 		//bubbleSort(collection,'age','dec');
-		dynamicSort(collection,'age',1);
-		show(collection);
+		//dynamicSort(collection,'age',1);
+		getData('data.txt', getCollection, 'GET');
+		
 	}
 	/**
      * assignment function init () global status.
