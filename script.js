@@ -1,6 +1,6 @@
 (function ()
 {
-	
+
 	var collection = [];
 	/**
     * The function that displays a collection of object on the screen.
@@ -15,9 +15,14 @@
         xhr.onreadystatechange = function() {             
 			if (xhr.readyState === 4 )  
 	        {
-
+	        	if(xhr.status === 200)
+	            {
 	            	callback(xhr.responseText);
-
+	            }
+	            if(xhr.status === 404)
+	            {
+	            	alert('Error 404. Check the file path to the data.');
+	            }
 	        }  
         }
         xhr.send(null); 
@@ -40,7 +45,7 @@
         var array_of_strings = [];
         array_of_strings = text.split('\n');
         collection = array_of_strings.map(transformToObject);
-        dynamicSort(collection,'age',-1);
+        dynamicSort(collection,'name',1);
         show(collection);
     }
 
@@ -126,17 +131,17 @@
 		array.sort(sort_rule);		
 	}
 	/**
-     * The function is executed after loading html page.
-     */
+    * The function is executed after loading html page.
+    */
 	function init()
 	{
 		//bubbleSort(collection,'age','dec');
 		//dynamicSort(collection,'age',1);
-		getData('http://127.0.0.1:1337/', getCollection, 'GET');
+		getData('data.txt', getCollection, 'GET');
 		
 	}
 	/**
-     * assignment function init () global status.
-     */
+    * assignment function init () global status.
+    */
 	window.init = init;
 }())
