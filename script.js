@@ -6,20 +6,14 @@
         var xhr = new XMLHttpRequest();
         xhr.open(method, url, true); 
         xhr.onreadystatechange = function() {             
-			if (xhr.readyState == 4 )  
+			if (xhr.readyState === 4 )  
 	        {
-	            callback(xhr.responseText);
-	        } 
-	        if(xhr.status == 404)
-	        {
-	        	alert('Error 404');
+
+	            	callback(xhr.responseText);
+
 	        }  
-	        if(xhr.responseText == null)
-	        {
-	        	alert('Error file is empty');
-	        }	         
         }
-        xhr.send(); 
+        xhr.send(null); 
     }
 
     function transformToObject(item)
@@ -134,7 +128,7 @@
 	{
 		//bubbleSort(collection,'age','dec');
 		//dynamicSort(collection,'age',1);
-		getData('data.txt', getCollection, 'GET');
+		getData('http://127.0.0.1:1337/', getCollection, 'GET');
 		
 	}
 	/**
