@@ -5,11 +5,21 @@
     {
         var xhr = new XMLHttpRequest();
         xhr.open(method, url, true); 
-        xhr.onreadystatechange = function() {  
-            if (xhr.readyState != 4) return; 
-                callback(xhr.responseText);  
+        xhr.onreadystatechange = function() {             
+			if (xhr.readyState == 4 )  
+	        {
+	            callback(xhr.responseText);
+	        } 
+	        if(xhr.status == 404)
+	        {
+	        	alert('Error 404');
+	        }  
+	        if(xhr.responseText == null)
+	        {
+	        	alert('Error file is empty');
+	        }	         
         }
-        xhr.send(null); 
+        xhr.send(); 
     }
 
     function transformToObject(item)
