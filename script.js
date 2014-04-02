@@ -8,25 +8,34 @@
 	* @param {function} function which will run after receiving data.
 	* @param {method} method for xmlhttprequest.
     */	
-    function getData(url,callback,method) 
+    function reqRes(url, callback, obj) 
     {
-        var xhr = new XMLHttpRequest();
-        xhr.open(method, url, true); 
+
+    	var options = obj || {};
+    	var method = options.method || 'GET';
+     	var xhr = new XMLHttpRequest();
+     	var data = null;
+
+     	xhr.open(method, url, true);
+     	if(options.data && method === 'POST')
+     	{
+     		data = options.data;
+     	}
         xhr.onreadystatechange = function() {             
-			if (xhr.readyState === 4 )  
-	        {
-	        	if(xhr.status === 200)
-	            {
-	            	callback(xhr.responseText);
-	            }
-	            if(xhr.status === 404)
-	            {
-	            	alert('Error 404. Check the file path to the data.');
-	            }
-	        }  
-        }
-        xhr.send(null); 
-    }
+         		if (xhr.readyState === 4 )  
+         	    {
+         	        if(xhr.status === 200)
+         	        {
+         	            callback(xhr.responseText);
+         	        }
+         	        else
+         	        {
+         	            alert('Error 404. Check the file path to the data.');
+         	        }
+         	    }  
+            }
+        xhr.send(data);
+    } 
     /**
     * Get string and transform to object.
 	* @param {mixed} item of array.
@@ -47,6 +56,7 @@
         collection = array_of_strings.map(transformToObject);
         dynamicSort(collection,'name',1);
         show(collection);
+        reqRes('data.txt', getCollection, {method:'POST', data:"collection"});	
     }
 
 
@@ -137,7 +147,7 @@
 	{
 		//bubbleSort(collection,'age','dec');
 		//dynamicSort(collection,'age',1);
-		getData('data.txt', getCollection, 'GET');
+		reqRes('data.txt', getCollection);
 		
 	}
 	/**
