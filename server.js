@@ -10,6 +10,11 @@ var appServer = function(req, res, next)
 	next();
 }
 
+app.post('/app', function(req, res){
+	console.log(req.body);
+});
+
+
 app.use(appServer);
 app.use(connect.static(__dirname));
 

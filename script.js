@@ -36,6 +36,7 @@
             }
         xhr.send(data);
     } 
+
     /**
     * Get string and transform to object.
 	* @param {mixed} item of array.
@@ -45,6 +46,7 @@
         var array=item.split(',');
         return {name:array[0], age:array[1], town:array[2]};
     }
+
     /**
     * Get string which will be a array of object then sort and disply.
 	* @param {String} string for sorting and disply.
@@ -56,7 +58,7 @@
         collection = array_of_strings.map(transformToObject);
         dynamicSort(collection,'name',1);
         show(collection);
-        reqRes('data.txt', getCollection, {method:'POST', data:"collection"});	
+       	
     }
 
 
@@ -148,6 +150,7 @@
 		//bubbleSort(collection,'age','dec');
 		//dynamicSort(collection,'age',1);
 		reqRes('data.txt', getCollection);
+		reqRes('data.txt', function(){}, {method:'POST', data:"collection"});
 		
 	}
 	/**
