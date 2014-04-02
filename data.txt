@@ -1,5 +1,9 @@
-Borys,44,sambir
-Rostyk,23,lviv
+Borys,44,Sambir
+Rostyk,23,Lviv
 Oksana,53,Odesa
 Volodya,38,Ryga
 Igor,26,Lviv
+Marta,13,Kyiv
+Ivanka,27,Lujok
+Dendi,35,London
+XBoCT,13,Itali

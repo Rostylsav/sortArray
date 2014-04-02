@@ -56,13 +56,24 @@
         var array_of_strings = [];
         array_of_strings = text.split('\n');
         collection = array_of_strings.map(transformToObject);
-        dynamicSort(collection,'name',1);
+        dynamicSort(collection,'age',1);
         show(collection);
+        var show_array = arrayToString(collection);
+        reqRes('/app', function(){}, {method:'POST', data:show_array});
+
        	
     }
 
 
-	
+	function arrayToString(array)
+	{
+		var show_array='';
+		for(var i=0;i<array.length;i++)
+		{
+			show_array=show_array+array[i].name+', '+array[i].age+', '+array[i].town+'\n';
+		}
+		return show_array;
+	}
 
 	/**
     * The function that displays a collection of object on the screen.
@@ -70,14 +81,11 @@
     */	
 	function show(array)
 	{
-		var show_array='';
+		
+		var show_array = arrayToString(array);
 		var container = document.getElementById('container');
 		var div = document.createElement('div');
 			div.id=0;
-		for(var i=0;i<array.length;i++)
-		{
-			show_array=show_array+'{ '+array[i].name+', '+array[i].age+', '+array[i].town+'}, ';
-		}	
 		div.appendChild(document.createTextNode('[ '+show_array+' ]'));
 		container.appendChild(div);
 	}
@@ -150,7 +158,7 @@
 		//bubbleSort(collection,'age','dec');
 		//dynamicSort(collection,'age',1);
 		reqRes('data.txt', getCollection);
-		reqRes('data.txt', function(){}, {method:'POST', data:"collection"});
+
 		
 	}
 	/**

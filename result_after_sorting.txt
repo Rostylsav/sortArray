@@ -1,0 +1,9 @@
+Marta, 13, Kyiv
+XBoCT, 13, Itali
+Rostyk, 23, Lviv
+Igor, 26, Lviv
+Ivanka, 27, Lujok
+Dendi, 35, London
+Volodya, 38, Ryga
+Borys, 44, Sambir
+Oksana, 53, Odesa
