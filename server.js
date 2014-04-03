@@ -24,17 +24,10 @@ app.use(function(req, res, next) {
         });
 
 app.use(express.bodyParser());
-app.post('/app', function(req, res){
-	fs.writeFile('d:/rpas/GitHub/sortArray/result_after_sorting.txt', req.rawBody, function (err) {
-  if (err) 
-  	{
-  		return console.log(err);
-  	}
-  	else
-  	{
-  		  console.log('File file is saved!');
-  	}
-});
+app.post('/app', function(req, res)
+    {
+        fs.writeFile('d:/rpas/GitHub/sortArray/result_after_sorting.txt', req.rawBody, function (err) {if (err){return console.log(err);}else{console.log('File file is saved!');}})
+    });
 app.use(appServer);
 app.use(connect.static(__dirname));
 app.listen(3000);
